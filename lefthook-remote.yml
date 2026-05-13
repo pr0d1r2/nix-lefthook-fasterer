@@ -1,0 +1,13 @@
+---
+pre-commit:
+  commands:
+    fasterer:
+      glob: "**/*.rb"
+      run: bundle exec fasterer 2>/dev/null | grep -F -f <(echo {staged_files} | tr ' ' '\n') || true
+      timeout: 30s
+
+pre-push:
+  commands:
+    fasterer:
+      run: bundle exec fasterer || true
+      timeout: 30s
